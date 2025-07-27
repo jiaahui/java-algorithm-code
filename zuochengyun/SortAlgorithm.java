@@ -5,6 +5,8 @@ package zuochengyun;
 // bubbleSort    冒泡排序：从前向后遍历，将较大的元素向后移动
 // insertionSort 插入排序：从前向后遍历，将当前元素放在前面有序序列的正确位置
 
+// Java API: import java.util.Arrays; \ Arrays.sort(arr);
+
 public class SortAlgorithm {
     // 工具函数：交换数组中 i 和 j 位置的元素
     public static void swap(int[] arr, int i, int j) {
