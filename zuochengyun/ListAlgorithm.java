@@ -4,6 +4,7 @@ package zuochengyun;
 // 反转单链表、反转双链表
 // 合并两个有序列表
 // 两个链表相加
+// 根据指定值划分链表
 
 // Java API: LinkedList
 
@@ -122,5 +123,35 @@ public class ListAlgorithm {
         }
 
         return ans;
+    }
+
+    // 根据指定值划分链表
+    // https://leetcode.cn/problems/partition-list
+    public static ListNode partition(ListNode head, int x) {
+        ListNode leftHead = null, leftTail = null;
+        ListNode rightHead = null, rightTail = null;
+        ListNode next = null;
+
+        while (head != null) {
+            next = head.next;
+            head.next = null;
+
+            if (head.val < x) {
+                if (leftHead == null) leftHead = head;
+                else leftHead.next = head;
+                leftTail = head;
+            } else {
+                if (rightHead == null) rightHead = head;
+                else rightHead.next = head;
+                rightTail = head;
+            }
+
+            head = next;
+        }
+
+        if (leftHead == null) return rightHead;
+
+        leftTail.next = rightHead;
+        return leftHead;
     }
 }
