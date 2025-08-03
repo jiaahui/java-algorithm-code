@@ -3,6 +3,7 @@ package zuochengyun;
 // 队列和栈
 // 使用数组实现队列和栈、使用数组实现循环队列（统一使用左闭右开表示法）
 // 使用栈实现队列、使用队列实现栈
+// 最小栈
 
 // Java API: java.util.Queue; java.util.Stack;
 // public Queue<Integer> q = new LinkedList<>();
@@ -165,5 +166,31 @@ public class QueueAndStack {
         public int top() {return queue.peek();}
 
         public boolean empty() {return queue.isEmpty();}
+    }
+
+    // 最小栈
+    // https://leetcode.cn/problems/min-stack
+    public static class MinStack {
+        public Stack<Integer> data, min;
+
+        public MinStack() {
+            data = new Stack<Integer>();
+            min = new Stack<Integer>();
+        }
+
+        public void push(int x) {
+            data.push(x);
+            if (min.isEmpty() || x <= min.peek()) min.push(x);
+            else min.push(min.peek());
+        }
+
+        public void pop() {
+            data.pop();
+            min.pop();
+        }
+
+        public int top() {return data.peek();}
+
+        public int getMin() {return min.peek();}
     }
 }
