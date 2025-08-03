@@ -2,6 +2,7 @@ package zuochengyun;
 
 // 队列和栈
 // 使用数组实现队列和栈、使用数组实现循环队列（统一使用左闭右开表示法）
+// 使用栈实现队列、使用队列实现栈
 
 // Java API: java.util.Queue; java.util.Stack;
 // public Queue<Integer> q = new LinkedList<>();
@@ -10,6 +11,9 @@ package zuochengyun;
 // offer()   尾部插入元素   push()
 // poll()    首部删除元素   pop()
 // peek()    获取首部元素
+
+import java.util.Stack;
+import java.util.Queue;
 
 public class QueueAndStack {
     // 数组实现队列
@@ -100,5 +104,66 @@ public class QueueAndStack {
                 return this.queue[last];
             }
         }
+    }
+
+    // 使用栈实现队列
+    // https://leetcode.cn/problems/implement-queue-using-stacks
+    public static class ImplementQueueUsingStack {
+        public Stack<Integer> in, out;
+
+        public ImplementQueueUsingStack() {
+            in = new Stack<Integer>();
+            out = new Stack<Integer>();
+        }
+
+        private void inToOut() {
+            if (out.isEmpty()) {
+                while (!in.isEmpty()) {
+                    out.push(in.pop());
+                }
+            }
+        }
+
+        public void push(int x) {
+            in.push(x);
+            inToOut();
+        }
+
+        public int pop() {
+            inToOut();
+            return out.pop();
+        }
+
+        public int peek() {
+            inToOut();
+            return out.peek();
+        }
+
+        public boolean empty() {
+            return in.isEmpty() && out.isEmpty();
+        }
+    }
+
+    // 使用队列实现栈
+    // https://leetcode.cn/problems/implement-stack-using-queues
+    public static class ImplementStackUsingQueue {
+        Queue<Integer> queue;
+
+        public ImplementStackUsingQueue() {
+            this.queue = LinkedList<Integer>();
+        }
+
+        // O(n)
+        public void push(int x) {
+            int n = queue.size();
+            queue.offer(x);
+            for (int i = 0; i < n; i++) queue.offer(queue.poll());
+        }
+
+        public int pop() {return queue.poll();}
+
+        public int top() {return queue.peek();}
+
+        public boolean empty() {return queue.isEmpty();}
     }
 }
