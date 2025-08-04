@@ -8,7 +8,7 @@ package zuochengyun;
 
 // Java API: LinkedList
 
-public class ListAlgorithm {
+public class LinkedListAlgorithm {
     // 单链表节点
     public static class ListNode {
         public int val;
