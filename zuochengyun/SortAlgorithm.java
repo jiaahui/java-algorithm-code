@@ -44,4 +44,42 @@ public class SortAlgorithm {
             for (int j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) swap(arr, j, j + 1);
         }
     }
+    // 归并排序
+    // https://www.luogu.com.cn/problem/P1177
+    public static int MAXN = 1000;
+    public static int arr[] = new int[MAXN];
+    public static int help[] = new int[MAXN];
+    public static int n = 0;
+    
+    public static void merge(int left, int mid, int right) {
+        int i = left;
+        int a = left;
+        int b = mid + 1;
+
+        while (a <= mid && b <= right) {
+            help[i++] = arr[a] <= arr[b] ? arr[a++] : arr[b++];
+        }
+        while (a <= mid) help[i++] = arr[a++];
+        while (b <= right) help[i++] = arr[b++];
+
+        for (i = left; i <= right; i++) arr[i] = help[i];
+    }
+    public static void mergeSortRecursion(int left, int right) {
+        if (left == right) return;
+        int mid = left + ((right - left) >> 1);
+        mergeSortRecursion(left, mid);
+        mergeSortRecursion(mid + 1, right);
+        merge(left, mid, right);
+    }
+    public static void mergeSortIteration() {
+        int n = arr.length;
+        for (int currSize = 1; currSize < n; currSize *= 2) {
+            // 从左到右合并子数组
+            for (int leftStart = 0; leftStart < n - 1; leftStart += 2 * currSize) {
+                int mid = Math.min(leftStart + currSize - 1, n - 1);
+                int rightEnd = Math.min(leftStart + 2 * currSize - 1, n - 1);
+                merge(leftStart, mid, rightEnd);
+            }
+        }
+    }
 }
